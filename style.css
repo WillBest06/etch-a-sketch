@@ -49,5 +49,6 @@ body {
     background-color: darkcyan;
     border: 2px solid white;
     text-align: center;
-    vertical-align: auto;
+    font-size: 24px;
+
 }

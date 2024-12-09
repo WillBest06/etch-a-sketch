@@ -12,6 +12,12 @@ controlsPanel.appendChild(changeGridSizeBtn);
 const gridSizeInfo = document.createElement('p');
 gridSizeInfo.className = 'controls';
 controlsPanel.appendChild(gridSizeInfo);
+
+const clearCanvasBtn = document.createElement('button');
+clearCanvasBtn.className = 'controls';
+clearCanvasBtn.textContent = 'Clear canvas';
+controlsPanel.appendChild(clearCanvasBtn);
+
 function drawGrid(squaresPerSide) {
     numberOfSquares = squaresPerSide * squaresPerSide;
 
@@ -28,7 +34,12 @@ function drawGrid(squaresPerSide) {
 
 drawGrid(gridSize); 
 
-canvas.addEventListener('click', (e) =>{
+function clearCanvas() {
+    clearGrid();
+    drawGrid(gridSize);
+}
+
+canvas.addEventListener('mousedown', (e) =>{
     const box = e.target;
     if (box.className == 'grid-box') {
         box.style.backgroundColor = 'black';
@@ -51,7 +62,16 @@ canvas.addEventListener('mouseover', (e) =>{
 })
 
 changeGridSizeBtn.addEventListener('click', () => {
-   gridSize = prompt('How many boxes would you like the grid to be?');
+
+    while (true) {
+        gridSize = Number(prompt('How many boxes would you like the grid to be?'));
+
+        if (Number.isInteger(gridSize) == true && gridSize != 0) {
+            break;
+        }
+    }
+   
+
    if (gridSize > 100) {
         gridSize = 100;
    } else if (gridSize < 1) {
@@ -60,6 +80,10 @@ changeGridSizeBtn.addEventListener('click', () => {
    
     clearGrid();
     drawGrid(gridSize);
+})
+
+clearCanvasBtn.addEventListener('click', () => {
+    clearCanvas();
 })
 
 function clearGrid () {
